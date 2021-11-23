@@ -1,0 +1,81 @@
+body {
+  display: block;
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+form {
+  display: block;
+  margin: 20px auto 0px auto;
+  color: #5db2f6;
+  width: 100%;
+  border-style: none;
+}
+
+h5 {
+  color: #5db2f6;
+  font-weight: bold;
+  margin: 0px;
+}
+
+ul {
+  display: inline;
+  text-align: center;
+  list-style: none;
+  padding: 0px;
+  margin: 0px;
+  color: #5db2f6;
+}
+
+.list1,
+.list2,
+.list3,
+.list4,
+.list5 {
+  border: 2px solid #5db2f6;
+  border-radius: 60px;
+}
+
+.maincontainer {
+  width: 500px;
+  display: block;
+  margin: 0 auto;
+  color: #5db2f6;
+  border: 2px solid #5db2f6;
+  border-radius: 10px;
+}
+
+.image1 {
+  width: 50px;
+}
+
+.col-sm {
+  padding: 0px;
+}
+
+.card-text1 {
+  margin: 0px;
+}
+
+.card-text2 {
+  margin: 0px;
+}
+
+.card-text3 {
+  margin: 0px;
+}
+
+.card-text4 {
+  margin: 0px;
+}
+,
+.MCHeader {
+  margin: 10px;
+  padding: 10px;
+}
+
+.footer {
+  text-align: center;
+  color: #5db2f6;
+  margin: 10px auto;
+}

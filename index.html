@@ -1,14 +1,162 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
+    <title>Weather Forecast</title>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://kit.fontawesome.com/417a9f87da.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="src/style.css" />
   </head>
+
   <body>
-    <h1>Hello Git</h1>
-    <script src="script.js"></script>
+    <form id="search-form">
+      <div class="form-group">
+        <input type="text" id="input-city" placeholder="Find a City" />
+        <input type="submit" id="search-city" value="search" />
+        <input type="submit" id="search-current-city" value="current" />
+      </div>
+    </form>
+
+    <br />
+    <div class="maincontainer">
+      <h5 class="MCHeader" id="current-city">Beijing</h5>
+      <br />
+      <ul>
+        <li class="list0">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm">
+                <p class="card-text1" id="current-date">10/28 Wed</p>
+
+                <p class="card-text2" id="current-time">22:03</p>
+              </div>
+              <div class="col-sm">
+                <p class="card-text3">
+                  <span id="current-temp">35</span>
+                  <span id="current-c"><a href="#">°C</a></span> <span>/</span>
+                  <span id="current-f"><a href="#">°F</a></span>
+                </p>
+                <p class="card-text4">
+                  <i class="fas fa-sun"></i>
+                </p>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <hr />
+
+    <h5>Next 5 Days Forecast</h5>
+
+    <br />
+    <ul class="listTotal">
+      <li class="list1">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm">
+              <p class="card-text1">10/29</p>
+              <p class="card-text2">Friday</p>
+            </div>
+            <div class="col-sm">
+              <p class="card-text3">25°C</p>
+              <p class="card-text4">
+                <i class="fas fa-cloud-sun"></i>
+              </p>
+            </div>
+          </div>
+        </div>
+      </li>
+      <br />
+      <li class="list2">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm">
+              <p class="card-text1">10/30</p>
+
+              <p class="card-text2">Saturday</p>
+            </div>
+            <div class="col-sm">
+              <p class="card-text3">23°C</p>
+              <p class="card-text4">
+                <i class="fas fa-sun"></i>
+              </p>
+            </div>
+          </div>
+        </div>
+      </li>
+      <br />
+      <li class="list3">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm">
+              <p class="card-text1">10/31</p>
+
+              <p class="card-text2">Sunday</p>
+            </div>
+            <div class="col-sm">
+              <p class="card-text3">28°C</p>
+              <p class="card-text4">
+                <i class="fas fa-snowflake"></i>
+              </p>
+            </div>
+          </div>
+        </div>
+      </li>
+      <br />
+      <li class="list4">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm">
+              <p class="card-text1">11/1</p>
+
+              <p class="card-text2">Monday</p>
+            </div>
+            <div class="col-sm">
+              <p class="card-text3">32°C</p>
+              <p class="card-text4">
+                <i class="fas fa-cloud-rain"></i>
+              </p>
+            </div>
+          </div>
+        </div>
+      </li>
+      <br />
+      <li class="list5">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm">
+              <p class="card-text1">11/2</p>
+
+              <p class="card-text2">Tuesday</p>
+            </div>
+            <div class="col-sm">
+              <p class="card-text3">33°C</p>
+              <p class="card-text4">
+                <i class="fas fa-cloud-rain"></i>
+              </p>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <div class="footer">Coded by Zelda</div>
   </body>
+  <script src="src/script.js"></script>
 </html>
