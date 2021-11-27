@@ -79,3 +79,7 @@ ul {
   color: #5db2f6;
   margin: 10px auto;
 }
+
+#icon {
+  max-width: 45px;
+}

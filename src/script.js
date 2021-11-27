@@ -1,10 +1,10 @@
-//⏰Feature #1
-//In your project, display the current date and time using JavaScript: Tuesday 16:00
-function currentTime(date) {
-  let hour = date.getHours();
-  let min = date.getMinutes();
+//Week
+function currentTime(timestamp) {
+  let date = timestamp.time;
   let mon = date.getMonth() + 1;
   let day = date.getDate();
+  let hour = date.getHours();
+  let min = date.getMinutes();
   let weekTable = [
     "Monday",
     "Tuesday",
@@ -14,43 +14,48 @@ function currentTime(date) {
     "Saturday",
     "Sunday",
   ];
-  let week = weekTable[date.getDay()];
+  let week = weekTable[date.getDay() - 1];
   let currentTime = document.querySelector("#current-time");
   currentTime.innerHTML = `${hour}:${min}`;
   let currentDate = document.querySelector("#current-date");
   currentDate.innerHTML = `${mon}/${day} ${week}`;
 }
-let date = new Date();
-currentTime(date);
 
-//🕵️‍♀️Feature #2
 //Add a search engine, when searching for a city (i.e. Paris), display the city name on the page after the user submits the form.
-
 function weather(response) {
   let tempElement = Math.round(response.data.main.temp);
   let currentTemp = document.querySelector("#current-temp");
-  currentTemp.innerHTML = `${tempElement}`;
   let curCity = document.querySelector("#current-city");
+  let icon = document.querySelector("#icon");
+  currentTemp.innerHTML = `${tempElement}`;
   curCity.innerHTML = response.data.name;
+  icon.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
 }
 
-function search(city) {
+function citysearch(city) {
   let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=ea2c6cd1a422fcb7c4470a57622b5494`;
   axios.get(url).then(weather);
+}
+
+function timesearch(city) {
+  let url = `https://www.amdoren.com/api/timezone.php?api_key=4usyrJsANArBCz3xXtPS7PHvcJ364N&loc=${city}`;
+  axios.get(url).then(currentTime);
 }
 
 function currentCity(event) {
   event.preventDefault();
   let city = document.querySelector("#input-city").value;
-  search(city);
+  citysearch(city);
+  timesearch(city);
 }
 
 let click = document.querySelector("#search-form");
 click.addEventListener("submit", currentCity);
 
-//🙀Bonus Feature
-//Display a fake temperature (i.e 17) in Celsius and add a link to convert it to Fahrenheit. When clicking on it, it should convert the temperature to Fahrenheit. When clicking on Celsius, it should convert it back to Celsius.
-
+//tempC to tempF
 function tempC(event) {
   event.preventDefault();
   let tempElement = document.querySelector("#current-temp");
@@ -71,6 +76,7 @@ function tempF(event) {
 let TempFClick = document.querySelector("#current-c");
 TempFClick.addEventListener("click", tempF);
 
+//Get the current location
 function weatherCurrent(response) {
   let tempElement = Math.round(response.data.main.temp);
   let city = response.data.name;
