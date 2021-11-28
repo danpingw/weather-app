@@ -1,24 +1,9 @@
-//Week
-function currentTime(timestamp) {
-  let date = timestamp.time;
-  let mon = date.getMonth() + 1;
-  let day = date.getDate();
-  let hour = date.getHours();
-  let min = date.getMinutes();
-  let weekTable = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
-  let week = weekTable[date.getDay() - 1];
+//Tine
+function currentTime(response) {
   let currentTime = document.querySelector("#current-time");
-  currentTime.innerHTML = `${hour}:${min}`;
   let currentDate = document.querySelector("#current-date");
-  currentDate.innerHTML = `${mon}/${day} ${week}`;
+  currentTime.innerHTML = response.data.time_24;
+  currentDate.innerHTML = response.data.date;
 }
 
 //Add a search engine, when searching for a city (i.e. Paris), display the city name on the page after the user submits the form.
@@ -35,21 +20,18 @@ function weather(response) {
   );
 }
 
-function citysearch(city) {
-  let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=ea2c6cd1a422fcb7c4470a57622b5494`;
-  axios.get(url).then(weather);
-}
-
-function timesearch(city) {
-  let url = `https://www.amdoren.com/api/timezone.php?api_key=4usyrJsANArBCz3xXtPS7PHvcJ364N&loc=${city}`;
-  axios.get(url).then(currentTime);
+//API-Weather
+function search(city) {
+  let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=ea2c6cd1a422fcb7c4470a57622b5494`;
+  let timeUrl = `https://api.ipgeolocation.io/timezone?apiKey=eab6b55bcbac4289809e85eae59f3b15&location=${city}`;
+  axios.get(weatherUrl).then(weather);
+  axios.get(timeUrl).then(currentTime);
 }
 
 function currentCity(event) {
   event.preventDefault();
   let city = document.querySelector("#input-city").value;
-  citysearch(city);
-  timesearch(city);
+  search(city);
 }
 
 let click = document.querySelector("#search-form");
@@ -81,16 +63,25 @@ function weatherCurrent(response) {
   let tempElement = Math.round(response.data.main.temp);
   let city = response.data.name;
   let currentTemp = document.querySelector("#current-temp");
-  currentTemp.innerHTML = `${tempElement}`;
   let curCity = document.querySelector("#current-city");
+  currentTemp.innerHTML = `${tempElement}`;
   curCity.innerHTML = `${city}`;
+}
+
+function timeCurrent(response) {
+  let currentTime = document.querySelector("#current-time");
+  let currentDate = document.querySelector("#current-date");
+  currentTime.innerHTML = response.data.time_24;
+  currentDate.innerHTML = response.data.date;
 }
 
 function handlePosition(position) {
   let lat = Math.floor(position.coords.latitude);
   let lon = Math.floor(position.coords.longitude);
-  let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=ea2c6cd1a422fcb7c4470a57622b5494`;
-  axios.get(url).then(weatherCurrent);
+  let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=ea2c6cd1a422fcb7c4470a57622b5494`;
+  let timeUrl = `https://api.ipgeolocation.io/timezone?apiKey=eab6b55bcbac4289809e85eae59f3b15&lat=${lat}&long=${lon}`;
+  axios.get(weatherUrl).then(weatherCurrent);
+  axios.get(timeUrl).then(timeCurrent);
 }
 
 function getCurrentTemp() {
@@ -100,4 +91,4 @@ function getCurrentTemp() {
 let TempCurrentClick = document.querySelector("#search-current-city");
 TempCurrentClick.addEventListener("click", getCurrentTemp);
 
-search("Tokyo");
+search("Beijing");

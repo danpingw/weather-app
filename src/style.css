@@ -68,7 +68,7 @@ ul {
 .card-text4 {
   margin: 0px;
 }
-,
+
 .MCHeader {
   margin: 10px;
   padding: 10px;
@@ -82,4 +82,5 @@ ul {
 
 #icon {
   max-width: 45px;
+  color: #5db2f6;
 }
