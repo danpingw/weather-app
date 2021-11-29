@@ -84,3 +84,18 @@ ul {
   max-width: 45px;
   color: #5db2f6;
 }
+
+#current-f #current-c {
+  text-decoration: none;
+  color: #5db2f6;
+}
+
+.active {
+  color: #5db2f6;
+  cursor: default;
+  text-decoration: none;
+}
+
+.active:hover {
+  color: #5db2f6;
+}

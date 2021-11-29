@@ -35,17 +35,21 @@ function currentCity(event) {
 }
 
 //tempC to tempF
-function tempC(event) {
+function tempF(event) {
   event.preventDefault();
   let fahTemp = document.querySelector("#current-temp");
+  TempCClick.classList.remove("active");
+  TempFClick.classList.add("active");
   let temp = (tempElement * 9) / 5 + 32;
   fahTemp.innerHTML = Math.round(temp);
   console.log(tempElement);
 }
 
-function tempF(event) {
+function tempC(event) {
   event.preventDefault();
   let celElement = document.querySelector("#current-temp");
+  TempCClick.classList.add("active");
+  TempFClick.classList.remove("active");
   let temp = tempElement;
   celElement.innerHTML = Math.round(temp);
 }
@@ -85,11 +89,11 @@ let tempElement = null;
 let click = document.querySelector("#search-form");
 click.addEventListener("submit", currentCity);
 
-let TempCClick = document.querySelector("#current-f");
-TempCClick.addEventListener("click", tempC);
-
-let TempFClick = document.querySelector("#current-c");
+let TempFClick = document.querySelector("#current-f");
 TempFClick.addEventListener("click", tempF);
+
+let TempCClick = document.querySelector("#current-c");
+TempCClick.addEventListener("click", tempC);
 
 let TempCurrentClick = document.querySelector("#search-current-city");
 TempCurrentClick.addEventListener("click", getCurrentTemp);
