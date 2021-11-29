@@ -1,4 +1,4 @@
-//Tine
+//Time
 function currentTime(response) {
   let currentTime = document.querySelector("#current-time");
   let currentDate = document.querySelector("#current-date");
@@ -8,11 +8,11 @@ function currentTime(response) {
 
 //Add a search engine, when searching for a city (i.e. Paris), display the city name on the page after the user submits the form.
 function weather(response) {
-  let tempElement = Math.round(response.data.main.temp);
   let currentTemp = document.querySelector("#current-temp");
   let curCity = document.querySelector("#current-city");
   let icon = document.querySelector("#icon");
-  currentTemp.innerHTML = `${tempElement}`;
+  tempElement = response.data.main.temp;
+  currentTemp.innerHTML = Math.round(tempElement);
   curCity.innerHTML = response.data.name;
   icon.setAttribute(
     "src",
@@ -34,29 +34,21 @@ function currentCity(event) {
   search(city);
 }
 
-let click = document.querySelector("#search-form");
-click.addEventListener("submit", currentCity);
-
 //tempC to tempF
 function tempC(event) {
   event.preventDefault();
-  let tempElement = document.querySelector("#current-temp");
-  let temp = tempElement.innerHTML;
-  tempElement.innerHTML = Math.round((temp * 9) / 5 + 32);
+  let fahTemp = document.querySelector("#current-temp");
+  let temp = (tempElement * 9) / 5 + 32;
+  fahTemp.innerHTML = Math.round(temp);
+  console.log(tempElement);
 }
-
-let TempCClick = document.querySelector("#current-f");
-TempCClick.addEventListener("click", tempC);
 
 function tempF(event) {
   event.preventDefault();
-  let tempElement = document.querySelector("#current-temp");
-  let temp = tempElement.innerHTML;
-  tempElement.innerHTML = Math.round(((temp - 32) * 5) / 9);
+  let celElement = document.querySelector("#current-temp");
+  let temp = tempElement;
+  celElement.innerHTML = Math.round(temp);
 }
-
-let TempFClick = document.querySelector("#current-c");
-TempFClick.addEventListener("click", tempF);
 
 //Get the current location
 function weatherCurrent(response) {
@@ -87,6 +79,17 @@ function handlePosition(position) {
 function getCurrentTemp() {
   navigator.geolocation.getCurrentPosition(handlePosition);
 }
+
+let tempElement = null;
+
+let click = document.querySelector("#search-form");
+click.addEventListener("submit", currentCity);
+
+let TempCClick = document.querySelector("#current-f");
+TempCClick.addEventListener("click", tempC);
+
+let TempFClick = document.querySelector("#current-c");
+TempFClick.addEventListener("click", tempF);
 
 let TempCurrentClick = document.querySelector("#search-current-city");
 TempCurrentClick.addEventListener("click", getCurrentTemp);
