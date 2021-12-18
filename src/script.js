@@ -49,7 +49,7 @@ function displayForecast(response) {
   let forecastElement = document.querySelector("#forecast");
   let forecastHTML = "";
   forecast.forEach(function (forecastDay, index) {
-    if (index < 6) {
+    if (index > 0 && index < 6) {
       forecastHTML =
         forecastHTML +
         ` <li class="list1">
