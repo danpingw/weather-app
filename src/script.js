@@ -2,8 +2,18 @@
 function currentTime(response) {
   let currentTime = document.querySelector("#current-time");
   let currentDate = document.querySelector("#current-date");
+  let N1Date = document.querySelector("#N1-date");
+  let N2Date = document.querySelector("#N2-date");
+  let N3Date = document.querySelector("#N3-date");
+  let N4Date = document.querySelector("#N4-date");
+  let N5Date = document.querySelector("#N5-date");
   currentTime.innerHTML = response.data.time_24;
   currentDate.innerHTML = response.data.date;
+  N1Date.innerHTML = response.data.date + 86400000;
+  N2Date.innerHTML = response.data.date + 2;
+  N3Date.innerHTML = response.data.date + 3;
+  N4Date.innerHTML = response.data.date + 4;
+  N5Date.innerHTML = response.data.date + 5;
 }
 
 //Add a search engine, when searching for a city (i.e. Paris), display the city name on the page after the user submits the form.
@@ -54,6 +64,36 @@ function tempC(event) {
   celElement.innerHTML = Math.round(temp);
 }
 
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = "";
+  let days = ["Sat", "Sun", "Mon"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      ` <li class="list1">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <p id="N1-date">10/29</p>
+        <p class="card-text2">${day}</p>
+      </div>
+      <div class="col-sm">
+        <p class="card-text3">25°C</p>
+        <p class="card-text4">
+          <i class="fas fa-cloud-sun"></i>
+        </p>
+      </div>
+    </div>
+  </div>
+</li>
+<br />
+  `;
+  });
+
+  forecastElement.innerHTML = forecastHTML;
+}
+
 //Get the current location
 function weatherCurrent(response) {
   let tempElement = Math.round(response.data.main.temp);
@@ -99,3 +139,4 @@ let TempCurrentClick = document.querySelector("#search-current-city");
 TempCurrentClick.addEventListener("click", getCurrentTemp);
 
 search("Beijing");
+displayForecast();
