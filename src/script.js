@@ -2,18 +2,8 @@
 function currentTime(response) {
   let currentTime = document.querySelector("#current-time");
   let currentDate = document.querySelector("#current-date");
-  let N1Date = document.querySelector("#N1-date");
-  let N2Date = document.querySelector("#N2-date");
-  let N3Date = document.querySelector("#N3-date");
-  let N4Date = document.querySelector("#N4-date");
-  let N5Date = document.querySelector("#N5-date");
   currentTime.innerHTML = response.data.time_24;
   currentDate.innerHTML = response.data.date;
-  N1Date.innerHTML = response.data.date + 86400000;
-  N2Date.innerHTML = response.data.date + 2;
-  N3Date.innerHTML = response.data.date + 3;
-  N4Date.innerHTML = response.data.date + 4;
-  N5Date.innerHTML = response.data.date + 5;
 }
 
 //Add a search engine, when searching for a city (i.e. Paris), display the city name on the page after the user submits the form.
@@ -28,6 +18,73 @@ function weather(response) {
     "src",
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
+  weatherForecast(response.data.coord);
+}
+
+function formatDate(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  let day = date.getDate();
+  return year + "/" + month + "/" + day;
+}
+
+function formatWeek(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesda",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  return days[day];
+}
+
+function displayForecast(response) {
+  let forecast = response.data.daily;
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = "";
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        ` <li class="list1">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+        <p id="N1-date">${formatDate(forecastDay.dt)}</p>
+        <p class="card-text2">${formatWeek(forecastDay.dt)}</p>
+      </div>
+      <div class="col-sm">
+        <p class="card-text3">${Math.round(forecastDay.temp.day)}°C</p>
+        <p class="card-text4">
+        <img id=icon
+        src="http://openweathermap.org/img/wn/${
+          forecastDay.weather[0].icon
+        }@2x.png"
+    
+      />
+        </p>
+      </div>
+    </div>
+  </div>
+</li>
+<br />
+  `;
+    }
+  });
+
+  forecastElement.innerHTML = forecastHTML;
+}
+
+function weatherForecast(data) {
+  let forecastUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${data.lat}&lon=${data.lon}&appid=ea2c6cd1a422fcb7c4470a57622b5494&units=metric`;
+  console.log(forecastUrl);
+  axios.get(forecastUrl).then(displayForecast);
 }
 
 //API-Weather
@@ -64,60 +121,15 @@ function tempC(event) {
   celElement.innerHTML = Math.round(temp);
 }
 
-function displayForecast() {
-  let forecastElement = document.querySelector("#forecast");
-  let forecastHTML = "";
-  let days = ["Sat", "Sun", "Mon"];
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      ` <li class="list1">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm">
-        <p id="N1-date">10/29</p>
-        <p class="card-text2">${day}</p>
-      </div>
-      <div class="col-sm">
-        <p class="card-text3">25°C</p>
-        <p class="card-text4">
-          <i class="fas fa-cloud-sun"></i>
-        </p>
-      </div>
-    </div>
-  </div>
-</li>
-<br />
-  `;
-  });
-
-  forecastElement.innerHTML = forecastHTML;
-}
-
 //Get the current location
-function weatherCurrent(response) {
-  let tempElement = Math.round(response.data.main.temp);
-  let city = response.data.name;
-  let currentTemp = document.querySelector("#current-temp");
-  let curCity = document.querySelector("#current-city");
-  currentTemp.innerHTML = `${tempElement}`;
-  curCity.innerHTML = `${city}`;
-}
-
-function timeCurrent(response) {
-  let currentTime = document.querySelector("#current-time");
-  let currentDate = document.querySelector("#current-date");
-  currentTime.innerHTML = response.data.time_24;
-  currentDate.innerHTML = response.data.date;
-}
-
 function handlePosition(position) {
   let lat = Math.floor(position.coords.latitude);
   let lon = Math.floor(position.coords.longitude);
   let weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=ea2c6cd1a422fcb7c4470a57622b5494`;
   let timeUrl = `https://api.ipgeolocation.io/timezone?apiKey=eab6b55bcbac4289809e85eae59f3b15&lat=${lat}&long=${lon}`;
-  axios.get(weatherUrl).then(weatherCurrent);
-  axios.get(timeUrl).then(timeCurrent);
+  axios.get(weatherUrl).then(weather);
+  axios.get(timeUrl).then(currentTime);
+  axios.get(weatherUrl).then(displayForecast);
 }
 
 function getCurrentTemp() {
@@ -139,4 +151,3 @@ let TempCurrentClick = document.querySelector("#search-current-city");
 TempCurrentClick.addEventListener("click", getCurrentTemp);
 
 search("Beijing");
-displayForecast();
