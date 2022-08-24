@@ -99,18 +99,10 @@ function currentCity(event) {
   event.preventDefault();
   let city = document.querySelector("#input-city").value;
   search(city);
+  TempCClick.classList.add("active");
 }
 
 //tempC to tempF
-function tempF(event) {
-  event.preventDefault();
-  let fahTemp = document.querySelector("#current-temp");
-  TempCClick.classList.remove("active");
-  TempFClick.classList.add("active");
-  let temp = (tempElement * 9) / 5 + 32;
-  fahTemp.innerHTML = Math.round(temp);
-  console.log(tempElement);
-}
 
 function tempC(event) {
   event.preventDefault();
@@ -119,6 +111,16 @@ function tempC(event) {
   TempFClick.classList.remove("active");
   let temp = tempElement;
   celElement.innerHTML = Math.round(temp);
+}
+
+function tempF(event) {
+  event.preventDefault();
+  let fahTemp = document.querySelector("#current-temp");
+  TempCClick.classList.remove("active");
+  TempFClick.classList.add("active");
+  let temp = (tempElement * 9) / 5 + 32;
+  fahTemp.innerHTML = Math.round(temp);
+  console.log(tempElement);
 }
 
 //Get the current location
@@ -134,6 +136,7 @@ function handlePosition(position) {
 
 function getCurrentTemp() {
   navigator.geolocation.getCurrentPosition(handlePosition);
+  TempCClick.classList.add("active");
 }
 
 let tempElement = null;
