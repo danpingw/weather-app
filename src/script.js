@@ -99,8 +99,8 @@ function currentCity(event) {
   event.preventDefault();
   let city = document.querySelector("#input-city").value;
   search(city);
-  TempCClick.classList.remove("active");
-  TempFClick.classList.add("active");
+  TempCClick.classList.add("active");
+  TempFClick.classList.remove("active");
 }
 
 //tempC to tempF
@@ -137,8 +137,8 @@ function handlePosition(position) {
 
 function getCurrentTemp() {
   navigator.geolocation.getCurrentPosition(handlePosition);
-  TempCClick.classList.remove("active");
-  TempFClick.classList.add("active");
+  TempCClick.classList.add("active");
+  TempFClick.classList.remove("active");
 }
 
 let tempElement = null;
