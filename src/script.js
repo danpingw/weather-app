@@ -141,11 +141,11 @@ let tempElement = null;
 let click = document.querySelector("#search-form");
 click.addEventListener("submit", currentCity);
 
-let TempCClick = document.querySelector("#current-c");
-TempCClick.addEventListener("click", tempC);
-
 let TempFClick = document.querySelector("#current-f");
 TempFClick.addEventListener("click", tempF);
+
+let TempCClick = document.querySelector("#current-c");
+TempCClick.addEventListener("click", tempC);
 
 let TempCurrentClick = document.querySelector("#search-current-city");
 TempCurrentClick.addEventListener("click", getCurrentTemp);
